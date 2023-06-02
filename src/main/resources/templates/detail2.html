@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="UTF-8">
+<title>商品詳細</title>
+<link href="/css/commons.css" rel="stylesheet">
+</head>
+<body>
+  <div id ="app">
+
+    <div class="header">
+      <h1 class="site_logo"><a href="menu.html">商品管理システム</a></h1>
+      <div class="user">
+        <p class="user_name">[[ ${session.user.name} ]]さん、こんにちは</p>
+
+
+        <form class="logout_form" action="/logout" method="get">
+          <button class="custom-btn" type="submit">
+            <img src="images/ドアアイコン.png">ログアウト</button>
+        </form>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="update">
+      <div class="form-body">
+        <div class="img_block">
+          <img src="images/マッキー.png" class="product-img"><br>
+        </div>
+        <form action="delete" method="post">
+          <fieldset class="label-130 product_block">
+            <p style ="color:red;" class="failed" th:text="${failedToDelete}"></p>
+            
+            <div>
+              <label>商品ID</label>
+              <input type="text" name="productId" th:field="${product.product_id}" readonly class="base-text">
+            </div>
+            <div>
+              <label>商品名</label>
+              <input type="text" name="name" th:field="${product.name}" readonly class="base-text">
+            </div>
+            <div>
+              <label>単価</label>
+              <input type="text" name="price" th:field="${product.price}" readonly class="base-text">
+            </div>
+            <div>
+              <label>カテゴリ</label>
+              <input type="text" name="categoryId" th:field="${product.category_name}" readonly class="base-text">
+            </div>
+            <div>
+              <label>商品説明</label>
+              <textarea name="description" readonly class="base-text" style="background-color: rgb(209, 209, 209);">
+                [[ ${product.description} ]]
+              </textarea>
+
+            </div>
+          </fieldset>
+          <div>
+            <div class="btns">
+              <input type="button" onclick="openModal()" value="削除" class="basic-btn">
+              <a th:href="@{'/update/'+${product.id}}" value="編集" class="basic-btn">編集</a>
+              <input type="button" onclick="location.href='/menu'" value="戻る" class="cancel-btn">
+            </div>
+            <div id="modal">
+              <p class="modal-message">削除しますか？</p>
+              <div class="btns">
+                <!-- <button type="button" id="delete-btn" class="basic-btn">削除</button> -->
+                <a th:href="@{'/delete/'+${product.id}}" id="delete-btn" class="basic-btn">削除</a>
+                <button type="button" onclick="closeModal()" class="cancel-btn">キャンセル</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="fadeLayer"></div>
+
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+  <script src="/js/commons.js"></script>
+
+  <script>
+    'use strict'
+    document.getElementById('delete-btn').addEventListener('click', () => {
+      location.href = './menu.html'
+    })
+
+  </script>
+  <script>
+    const { createApp } = Vue
+
+    createApp({
+      data(){
+        return{
+          product:{}
+        }
+      },
+
+      methods:{
+
+      },
+      created: function() {
+        console.log('created');
+   
+
+      }
+
+
+
+    }).mount('#app')
+
+  </script>
+</body>
+</html>

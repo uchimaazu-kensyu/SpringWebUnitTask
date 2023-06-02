@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>メニュー</title>
+<link href="css/commons.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+    <div class="header">
+      <h1 class="site_logo"><a href="menu.html">商品管理システム</a></h1>
+      <div class="user">
+        <p class="user_name">佐藤さん、こんにちは</p>
+        <form class="logout_form" action="logout.html" method="get">
+          <button class="custom-btn" type="submit">
+            <img src="images/ドアアイコン.png">ログアウト</button>
+        </form>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="btn-area">
+      <div class="btn"><a class="basic-btn regist" href="insert.html">新規登録</a></div>
+      <div class="btn"><a class="basic-btn regist" href="category.html">カテゴリ管理</a></div>
+    </div>
+    <p>成功メッセージ</p>
+    <form method="get" action="#" class="search-form">
+      <div class="order">
+        <select name="order" class="base-text">
+          <option>並び替え</option>
+          <option>商品ID：昇順</option>
+          <option>商品ID：降順</option>
+          <option>カテゴリ：昇順</option>
+          <option>カテゴリ：降順</option>
+          <option>単価：安い順</option>
+          <option>単価：高い順</option>
+        </select>
+      </div>
+      <div class="search-container">
+        <input type="text" name="keyword" size="25" placeholder="キーワード検索">
+        <input type="submit" value="&#xf002">
+      </div>
+    </form>
+
+    <table>
+        <div class="caption"><p>検索結果：10件</p></div>
+        
+      <thead>
+        <tr>
+          <th>商品ID</th>
+          <th>商品名</th>
+          <th>単価</th>
+          <th>カテゴリ</th>
+          <th>詳細</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>10001</td>
+          <td>マッキー(黒)</td>
+          <td>160</td>
+          <td>筆記具</td>
+          <td><a class="detail_btn" href="./detail.html">詳細</a></td>
+        </tr>
+        <tr>
+          <td>10002</td>
+          <td>電卓</td>
+          <td>935</td>
+          <td>オフィス機器</td>
+          <td><a class="detail_btn" href="./detail.html">詳細</a></td>
+        </tr>
+        <tr>
+          <td>10003</td>
+          <td>ホッチキス芯</td>
+          <td>220</td>
+          <td>事務消耗品</td>
+          <td><a class="detail_btn" href="./detail.html">詳細</a></td>
+        </tr>
+        <tr>
+          <td>10004</td>
+          <td>Campus(5冊組)</td>
+          <td>220</td>
+          <td>紙製品</td>
+          <td><a class="detail_btn" href="./detail.html">詳細</a></td>
+        </tr>
+        <tr>
+          <td>10005</td>
+          <td>地球儀</td>
+          <td>160</td>
+          <td>雑貨</td>
+          <td><a class="detail_btn" href="./detail.html">詳細</a></td>
+        </tr>
+        <tr>
+          <td>10006</td>
+          <td>ロジカルノート(5冊組)</td>
+          <td>386</td>
+          <td>紙製品</td>
+          <td><a class="detail_btn" href="./detail.html">詳細</a></td>
+        </tr>
+        <tr>
+          <td>10007</td>
+          <td>レジスター</td>
+          <td>130</td>
+          <td>オフィス用品</td>
+          <td><a class="detail_btn" href="./detail.html">詳細</a></td>
+        </tr>
+        <tr>
+          <td>10008</td>
+          <td>カドケシ</td>
+          <td>150</td>
+          <td>筆記具</td>
+          <td><a class="detail_btn" href="./detail.html">詳細</a></td>
+        </tr>
+        <tr>
+          <td>10009</td>
+          <td>アラビックヤマト</td>
+          <td>220</td>
+          <td>事務用品</td>
+          <td><a class="detail_btn" href="./detail.html">詳細</a></td>
+        </tr>
+        <tr>
+          <td>10010</td>
+          <td>粘土</td>
+          <td>160</td>
+          <td>雑貨</td>
+          <td><a class="detail_btn" href="./detail.html">詳細</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer></footer>
+
+
+  
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+
+<script>
+  
+  const { createApp } = Vue
+
+  createApp({
+    data(){
+      return{
+        products :[]
+      }
+
+
+    },
+
+    methods:{
+      
+      getProducts(){
+        axios.get('/products')
+        .then(res =>{
+          this.products =res.data;
+          console.log(this.products);
+        });
+      }
+    },
+
+    created:function(){
+      console.log("created")
+      this.getProducts();
+    }
+
+  }).mount('#app')
+
+</script>
+
+</body>
+</html>
